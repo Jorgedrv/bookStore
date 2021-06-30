@@ -1,0 +1,1 @@
+web: java -jar target/bookStore-1.0.0.jar
