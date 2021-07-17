@@ -17,7 +17,6 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/books")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "https://course-book-store.herokuapp.com", maxAge = 3600)
 public class BookController {
 
     private final BookService bookService;

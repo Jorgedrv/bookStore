@@ -18,7 +18,6 @@ public class CrossOriginConfig implements WebMvcConfigurer {
             .allowedOrigins("*")
             .allowCredentials(false)
             .allowedHeaders("Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization")
-            .exposedHeaders("Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization")
             .maxAge(3600);
     }
 }
