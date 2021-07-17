@@ -39,8 +39,8 @@ public class BookServiceTest {
     }
 
     @Test
-    void testFindAllBookByTitleShouldReturnList() {
-        when(bookRepository.findBooksByTitle("Test title")).thenReturn(BookMock.getBookList());
+    void testFindAllBookByTitleIgnoreCaseShouldReturnList() {
+        when(bookRepository.findBooksByTitleIgnoreCase("tEst title")).thenReturn(BookMock.getBookList());
         when(modelMapper.map(BookMock.getBook(), BookDto.class)).thenReturn(BookMock.getBookDto());
         List<BookDto> booksByTitle = bookService.getBooksByTitle("tEst title");
         Assertions.assertThat(1).isEqualTo(booksByTitle.size());
