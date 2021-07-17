@@ -48,6 +48,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .cors().configurationSource(request -> getCorsConfiguration())
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -55,5 +57,14 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/api/v1/login").permitAll()
                 .antMatchers("/api/v1/register").permitAll()
                 .anyRequest().authenticated();
+    }
+
+    private CorsConfiguration getCorsConfiguration() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedHeaders(Collections.singletonList("*"));
+        corsConfiguration.setAllowedOrigins(Collections.singletonList("*"));
+        corsConfiguration.setAllowedMethods(Arrays.asList(
+                HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name()));
+        return corsConfiguration;
     }
 }
