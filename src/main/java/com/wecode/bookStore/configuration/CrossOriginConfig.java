@@ -9,12 +9,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CrossOriginConfig implements WebMvcConfigurer {
 
     public void addCorsMappings(CorsRegistry registry) {
-        registry
-            .addMapping("/**")
-            .allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name())
-            .allowedOrigins("*")
-            .allowCredentials(false)
-            .allowedHeaders("Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization")
-            .maxAge(3600);
+        registry.addMapping("/**");
     }
 }
