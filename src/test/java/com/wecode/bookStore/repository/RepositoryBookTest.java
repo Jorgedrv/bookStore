@@ -29,13 +29,20 @@ public class RepositoryBookTest {
     void shouldAbleToFetchAllBooks() {
         Iterable<Book> all = bookRepository.findAll();
         Long totalBook = StreamSupport.stream(all.spliterator(), false).count();
-        Assertions.assertEquals(totalBook,2);
+        Assertions.assertEquals(totalBook,18);
     }
 
     @Test
     @Sql(scripts = {"classpath:insertInitialBookRecord.sql"})
     void shouldFindBookByTitle() {
         List<Book> bookList = bookRepository.findBooksByTitle("Test title");
+        Assertions.assertEquals(bookList.size(),1);
+    }
+
+    @Test
+    @Sql(scripts = {"classpath:insertInitialBookRecord.sql"})
+    void shouldFindBookByTitleIgnoreCase() {
+        List<Book> bookList = bookRepository.findBooksByTitleIgnoreCase("test title");
         Assertions.assertEquals(bookList.size(),1);
     }
 }

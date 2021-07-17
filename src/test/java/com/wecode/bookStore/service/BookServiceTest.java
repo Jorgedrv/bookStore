@@ -13,6 +13,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.util.List;
+
 @ExtendWith(MockitoExtension.class)
 public class BookServiceTest {
 
@@ -31,6 +33,18 @@ public class BookServiceTest {
         when(modelMapper.map(BookMock.getBook(), BookDto.class)).thenReturn(BookMock.getBookDto());
         Assertions.assertThat(1).isEqualTo(bookService.getBooks().size());
         Assertions.assertThat(bookService.getBooks().get(0))
+                .hasFieldOrPropertyWithValue("title", "Test title")
+                .hasFieldOrPropertyWithValue("description", "Test description")
+                .hasFieldOrPropertyWithValue("releaseYear", 2021);
+    }
+
+    @Test
+    void testFindAllBookByTitleShouldReturnList() {
+        when(bookRepository.findBooksByTitle("Test title")).thenReturn(BookMock.getBookList());
+        when(modelMapper.map(BookMock.getBook(), BookDto.class)).thenReturn(BookMock.getBookDto());
+        List<BookDto> booksByTitle = bookService.getBooksByTitle("tEst title");
+        Assertions.assertThat(1).isEqualTo(booksByTitle.size());
+        Assertions.assertThat(booksByTitle.get(0))
                 .hasFieldOrPropertyWithValue("title", "Test title")
                 .hasFieldOrPropertyWithValue("description", "Test description")
                 .hasFieldOrPropertyWithValue("releaseYear", 2021);

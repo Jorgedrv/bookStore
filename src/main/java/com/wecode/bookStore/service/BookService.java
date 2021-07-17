@@ -23,10 +23,17 @@ public class BookService {
     public List<BookDto> getBooks() {
         Iterable<Book> all = bookRepository.findAll();
         return StreamSupport.stream(all.spliterator(), false)
-                .map(getBookBookDtoFunction()).collect(Collectors.toList());
+                .map(getBookDtoFunction()).collect(Collectors.toList());
     }
 
-    private Function<Book, BookDto> getBookBookDtoFunction() {
+    public List<BookDto> getBooksByTitle(String title) {
+        List<Book> all = bookRepository.findBooksByTitleIgnoreCase(title);
+        return StreamSupport.stream(all.spliterator(), false)
+                .map(getBookDtoFunction()).collect(Collectors.toList());
+    }
+
+    private Function<Book, BookDto> getBookDtoFunction() {
         return book -> modelMapper.map(book, BookDto.class);
     }
+
 }
